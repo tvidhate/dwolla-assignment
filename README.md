@@ -14,7 +14,7 @@ docker build -t flask-api-ws:latest .
 ### Start web service
 - Run docker container:
 ```  
-docker run -p 5000:5000 flask-api-ws:latest
+docker run -p 5000:5000 --label=dwolla-api-n-client flask-api-ws:latest
 ```
 If the web service starts successfully, these logging statements should appear in the console:
 ```
@@ -27,4 +27,22 @@ If the web service starts successfully, these logging statements should appear i
 ```
 
 ### View web results 
-- curl to the url http://127.0.0.1:5000/v1/currentDateTime
+- Curl to the url http://127.0.0.1:5000/v1/currentDateTime
+- Output should be something like this
+```
+{"currentTime": "2021-10-02 03:40:02"}
+```
+
+### Start client program
+- Find the docker container id using
+```
+docker ps --filter "label=dwolla-api-n-client"
+```
+- Run the client.py
+```
+docker exec -ti <container id> python3 client.py
+```
+- Output should be something like this
+```
+Time is: 03:40:02
+```
